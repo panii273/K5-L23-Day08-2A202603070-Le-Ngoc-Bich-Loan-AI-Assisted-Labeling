@@ -1,1 +1,2 @@
 step,images,minutes,note
+gold_manual,4,26,gán tay trong CVAT không AI (gồm cả lần chỉnh v2: vật nhỏ <20px -> ignore_region)
