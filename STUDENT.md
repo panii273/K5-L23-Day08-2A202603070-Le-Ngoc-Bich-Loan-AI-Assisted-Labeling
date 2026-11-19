@@ -5,7 +5,7 @@
 - Lớp (L2 / L3 / khác): L2
 - Tài khoản GitHub: panii273
 - Repo bài nộp (URL): https://github.com/panii273/K5-L23-Day08-2A202603070-Le-Ngoc-Bich-Loan-AI-Assisted-Labeling
-- Commit chốt bài (hash): 9302117
+- Commit chốt bài (hash): 12c2fa6
 - Máy: Windows 11, chạy model trực tiếp trên máy (local, venv Python), không dùng Colab
 - CVAT (Docker): v2.81.0
 
