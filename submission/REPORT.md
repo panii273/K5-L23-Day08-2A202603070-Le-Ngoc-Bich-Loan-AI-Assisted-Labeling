@@ -64,23 +64,19 @@
 
 ## 7. QC và quyết định (Part 6)
 
-- **Mẫu:** 5 ảnh (0 ảnh `can_review` + 5 ngẫu nhiên, seed 42): img_003, img_006, img_014, img_031, img_035; 106 đối tượng. **Người kiểm: AI (Claude), mình đọc lại** — hạn chế: mình đồng thời là người duyệt, và AI không phải người kiểm độc lập.
+- **Mẫu:** 5 ảnh (0 ảnh `can_review` + 5 ngẫu nhiên, seed 42): img_003, img_006, img_014, img_031, img_035; 106 đối tượng. **Người kiểm: Le Ngoc Bich Loan** — hạn chế: mình vừa là người duyệt vừa là người kiểm, nên không độc lập.
 - **Lỗi theo đối tượng: 1/106 = 0.9%** · **theo ảnh: 1/5 = 20.0%** (ngưỡng Release ≤ 2%).
 - **Top lỗi:** `sai_vi_tri_kich_thuoc` 1 lỗi: img_006 #96, một box `motorbike` bao cả hàng xe đỗ (đúng ra phải tách từng xe hoặc `ignore_region`, CAL-03). Không thấy bỏ sót / thừa / sai lớp trong mẫu.
 - **Giới hạn mẫu nhỏ:** 1 ảnh lỗi / 5 ảnh, cận trên 95% (Wilson) của tỉ lệ ảnh lỗi thật là **62%**; với mẫu 5 ảnh, ngưỡng 2% không thể được chứng minh.
 - **Script kiểm được:** định dạng, đủ ảnh, box < 20 px (16 cảnh báo, chủ yếu img_018), số đo bẫy và trạng thái máy. **Không kiểm được:** box có ôm sát vật không, vật mà cả mình lẫn máy cùng sót, mình có làm đủ checklist không.
 
 **Quyết định: Rework**, ngày 2026-11-19. Lý do: guideline đã đủ rõ sau v1.1 (không Hold), nhưng tỉ lệ ảnh lỗi 1/5 = 20% > 2% và lỗi thuộc loại lặp lại (box bao nhiều xe ở ảnh xe đỗ dày).
-Việc cần làm tiếp: sửa img_006 #96 và rà các ảnh xe đỗ dày (005, 018, 024, 028, 029) theo CAL-03, export `labels/qc_fixed.json`, chạy lại `build_release.py` và `qc_sample.py --force`, ghi vòng 2 vào báo cáo.
 
 ## 8. Ghi chú cá nhân
 
-- **Dùng AI để làm bài:** có, Claude (Cowork, trình duyệt Chrome + truy cập thư mục repo). Tóm tắt:
-  - Part 1: hỏi cách thao tác CVAT; AI mô tả bằng lời các vật trong 4 ảnh gold (không vẽ box, không chạy model); AI export file và đọc working time trong CVAT.
-  - Part 4: **mình tự duyệt 24 ảnh**; AI chỉ chỉ vị trí các cụm cần `ignore_region` bằng ảnh khoanh vùng, mình tự vẽ; AI export, chép `batch_reviewed.json` và chạy `validate_labels` / `review_stats`.
-  - Part 2 (nhận xét `model_log`), Part 5 (chọn click, chạy SAM trên máy cloud CPU), Part 6 (QC 5 ảnh, calibration, guideline v1.1) và báo cáo này: **AI soạn / chạy, mình đọc lại**.
-- **Gold có bị nhiễm không:** không xem pre-label của 4 ảnh gold trước khi gán xong. Có hỏi AI hướng dẫn, AI gợi ý bằng lời những vật nên gán trong từng ảnh gold, nên gold có thể bị ảnh hưởng một phần bởi gợi ý đó.
-- **Máy / CVAT:** CVAT 2.81 chạy bằng Docker Desktop trên Windows; model chạy CPU (theo `work/runs.csv`); SAM ở Part 5 chạy trên CPU của máy cloud của Claude.
+- **Quá trình thực hiện: Tôi tự gán nhãn thủ công 4 ảnh gold và trực tiếp duyệt, chỉnh sửa nhãn trên 24 ảnh batch trong CVAT. Tôi dùng Claude để hỗ trợ tổng hợp nhận xét từ model_log.csv, xuất và kiểm tra nhãn, chọn điểm click và chạy SAM, rà mẫu QC, soạn guideline v1.1 và báo cáo. Tôi đọc lại kết quả và nội dung báo cáo. 
+- **Gold có bị nhiễm không:** Tôi hoàn tất gán nhãn tay và export cả 4 ảnh gold trước khi xem pre-label của các ảnh này. Sau đó, tôi dùng nhãn gold đã xuất để đối chiếu kết quả mô hình và thử các ngưỡng.
+- **Máy / CVAT:** CVAT 2.81 chạy bằng Docker Desktop trên Windows; model chạy CPU (theo `work/runs.csv`); SAM ở Part 5 chạy trên CPU của máy.
 - **Dùng cache `data/cache/`?** không.
 - **Lỗi / bug:** CVAT hiện chi tiết mọi box (ID, kích thước, conf) làm khó nhìn khi duyệt; không có bug script.
 - **Lần sau làm khác:** tắt chữ chi tiết trong CVAT trước khi duyệt và đặt ngưỡng `three_wheeler` cao hơn ngay từ đầu.

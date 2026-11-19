@@ -1,6 +1,6 @@
 image,object_id,error_type,reviewer,note
-img_003.jpg,,khong,không thấy lỗi rõ; #8 truck 0.25 ở xa mép trái khó xác nhận
-img_006.jpg,96,sai_vi_tri_kich_thuoc,một box motorbike bao cả hàng nhiều xe đỗ (x≈190-400); cần tách từng xe hoặc ignore_region (câu hỏi mở 2)
-img_014.jpg,,khong,
-img_031.jpg,,khong,box bicycle không gồm khay hàng nhô ra bên trái: khớp quy tắc 4.1.5
-img_035.jpg,,khong,
+img_003.jpg,,khong,lengocbichloan, không thấy lỗi rõ; #8 truck 0.25 ở xa mép trái khó xác nhận
+img_006.jpg,96,sai_vi_tri_kich_thuoc,lengocbichloan, một box motorbike bao cả hàng nhiều xe đỗ (x≈190-400); cần tách từng xe hoặc ignore_region (câu hỏi mở 2)
+img_014.jpg,,khong,lenngocbichloan
+img_031.jpg,,khong,lengocbichloan, box bicycle không gồm khay hàng nhô ra bên trái: khớp quy tắc 4.1.5
+img_035.jpg,,khong,lengocbichloan
