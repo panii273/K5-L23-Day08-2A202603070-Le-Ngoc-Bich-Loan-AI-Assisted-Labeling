@@ -74,9 +74,12 @@
 
 ## 8. Ghi chú cá nhân
 
-- **Quá trình thực hiện: Tôi tự gán nhãn thủ công 4 ảnh gold và trực tiếp duyệt, chỉnh sửa nhãn trên 24 ảnh batch trong CVAT. Tôi dùng Claude để hỗ trợ tổng hợp nhận xét từ model_log.csv, xuất và kiểm tra nhãn, chọn điểm click và chạy SAM, rà mẫu QC, soạn guideline v1.1 và báo cáo. Tôi đọc lại kết quả và nội dung báo cáo. 
-- **Gold có bị nhiễm không:** Tôi hoàn tất gán nhãn tay và export cả 4 ảnh gold trước khi xem pre-label của các ảnh này. Sau đó, tôi dùng nhãn gold đã xuất để đối chiếu kết quả mô hình và thử các ngưỡng.
-- **Máy / CVAT:** CVAT 2.81 chạy bằng Docker Desktop trên Windows; model chạy CPU (theo `work/runs.csv`); SAM ở Part 5 chạy trên CPU của máy.
+- **Dùng AI để làm bài:** có, dùng Claude.
+  - **Tự làm:** gán tay 4 ảnh gold; duyệt và sửa nhãn 24 ảnh batch trong CVAT (kể cả vẽ `ignore_region`); bấm giờ `time_log.csv`.
+  - **Claude hỗ trợ:** hướng dẫn thao tác CVAT; export và kiểm tra file nhãn; viết nhận xét trong `model_log.csv`; chọn điểm click và chạy SAM (Part 5); rà mẫu QC 5 ảnh; soạn `calibration_decisions.csv`, guideline v1.1 và báo cáo.
+  - **Kiểm tra:** tôi đọc lại toàn bộ kết quả, đối chiếu số liệu với `review_stats.md` và `qc_report_auto.md`, chỉnh nội dung trước khi nộp. Nhật ký hội thoại với AI có lưu lại.
+-  **Gold có bị nhiễm không:** không nhiễm từ máy. Tôi tự gán tay và export cả 4 ảnh gold trước khi xem pre-label của các ảnh này, không chạy model nào lên 4 ảnh gold. Trong lúc gán, tôi có hỏi Claude về thao tác CVAT và quy tắc label contract; Claude có gợi ý bằng lời các loại vật trong ảnh, còn việc vẽ box, chọn lớp và `ignore_region` là tôi tự làm. Sau khi export, tôi mới dùng nhãn gold để đối chiếu kết quả mô hình và chọn ngưỡng.
+- **Máy / CVAT:** CVAT 2.81 chạy bằng Docker Desktop trên Windows; model Part 2–3 chạy CPU trên máy (theo `work/runs.csv`); SAM ở Part 5 chạy CPU qua Claude.
 - **Dùng cache `data/cache/`?** không.
 - **Lỗi / bug:** CVAT hiện chi tiết mọi box (ID, kích thước, conf) làm khó nhìn khi duyệt; không có bug script.
 - **Lần sau làm khác:** tắt chữ chi tiết trong CVAT trước khi duyệt và đặt ngưỡng `three_wheeler` cao hơn ngay từ đầu.
